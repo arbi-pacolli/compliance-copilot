@@ -1,28 +1,47 @@
+
 # Compliance Copilot
 
-**Smarter Reviews. Stronger Compliance.**
+An AI-assisted KYC and AML compliance platform for managing client cases, tracking missing information, and supporting compliance review workflows.
 
-Compliance Copilot is a personal KYC/AML review assistant designed to help organize case information, identify missing evidence, draft structured review comments, and perform quality checks.
+## Current Features
 
-## Core Principles
+- Create and manage KYC/AML cases
+- Store case information using SQLite
+- Retrieve and update cases through a REST API
+- Track missing information and supporting documents
+- Manage case statuses
+- Explore API endpoints through interactive Swagger documentation
 
-- Assist compliance reviews without making final decisions.
-- Highlight missing information and potential risk indicators.
-- Never fabricate screening results or supporting evidence.
-- Protect confidential information and credentials.
-- Use fictional or synthetic client data during development.
+## Technology Stack
 
-## Planned Technology Stack
+- Python
+- FastAPI
+- SQLAlchemy
+- SQLite
+- Pydantic
+- JavaScript / Node.js frontend (in development)
 
-- **Frontend:** React and JavaScript
-- **Backend:** Python and FastAPI
-- **Database:** SQLite initially, with PostgreSQL planned later
-- **Version control:** Git
+## Running the Backend
 
-## Project Status
+From the `backend` directory, activate the virtual environment and start the API:
 
-Initial setup.
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m uvicorn app.main:app --reload
+```
+
+Open the API documentation at:
+
+http://127.0.0.1:8000/docs
+
+## Development Status
+
+This project is under active development. Features and documentation will evolve as development continues.
+
+## Security Notice
+
+Use synthetic data for development and testing. Never commit credentials, environment secrets, production databases, or confidential client information.
 
 ## Disclaimer
 
-This project is a development tool and does not replace professional judgment, internal compliance procedures, or applicable regulatory requirements.
+Compliance Copilot is a development and learning project. It supports compliance workflows and does not replace professional judgment or formal compliance decisions.
