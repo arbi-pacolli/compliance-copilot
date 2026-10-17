@@ -1,37 +1,62 @@
 
 from datetime import datetime
-
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 
+CaseStatus = Literal["pending", "in_review", "completed"]
+ClientType = Literal["individual", "business"]
+
+
 class CaseCreate(BaseModel):
-    case_reference: str = Field(min_length=1, max_length=50)
-    client_name: str = Field(min_length=1, max_length=150)
-    client_type: str = Field(min_length=1, max_length=50)
-    review_purpose: str = Field(min_length=1, max_length=150)
-    status: str = "Pending"
-    risk_level: str = "Unassessed"
-    missing_information: int = Field(default=0, ge=0)
-    notes: str | None = None
+    client_name: str = Field(min_length=1, max_length=120)
+    client_type: ClientType
+
+    occupation: str | None = None
+    account_purpose: str | None = None
+    expected_activity: str | None = None
+    source_of_funds: str | None = None
+
+    documents: list[dict] = Field(default_factory=list)
+    screening_results: str | None = None
+    transaction_context: str | None = None
+
+    status: CaseStatus = "pending"
 
 
 class CaseUpdate(BaseModel):
-    status: str | None = None
-    risk_level: str | None = None
-    missing_information: int | None = Field(default=None, ge=0)
-    notes: str | None = None
+    client_name: str | None = Field(default=None, min_length=1, max_length=120)
+    client_type: ClientType | None = None
+
+    occupation: str | None = None
+    account_purpose: str | None = None
+    expected_activity: str | None = None
+    source_of_funds: str | None = None
+
+    documents: list[dict] | None = None
+    screening_results: str | None = None
+    transaction_context: str | None = None
+
+    status: CaseStatus | None = None
 
 
 class CaseResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
-    case_reference: str
+    id: str
     client_name: str
     client_type: str
-    review_purpose: str
-    status: str
-    risk_level: str
-    missing_information: int
-    notes: str | None
+
+    occupation: str | None
+    account_purpose: str | None
+    expected_activity: str | None
+    source_of_funds: str | None
+
+    documents: list[dict]
+    screening_results: str | None
+    transaction_context: str | None
+
+    status: CaseStatus
     created_at: datetime
+    updated_at: datetime
+    missing_information: list[str] 
